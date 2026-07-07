@@ -6,6 +6,8 @@ jobs:
       - image: cimg/python:3.8
     steps:
       - checkout
+      - setup_remote_docker:
+          version: default
       - run:
           name: Zainstaluj zaleznosci (deps)
           command: make deps
@@ -15,6 +17,14 @@ jobs:
       - run:
           name: Testy (test)
           command: make test
+      - run:
+          name: Budowa obrazu (docker_build)
+          command: docker build -t $DOCKER_LOGIN/app_k5:$CIRCLE_SHA1 .
+      - run:
+          name: Publikacja obrazu (docker_push)
+          command: |
+            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_LOGIN" --password-stdin
+            docker push $DOCKER_LOGIN/app_k5:$CIRCLE_SHA1
 
 workflows:
   main:
