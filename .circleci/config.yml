@@ -1,0 +1,22 @@
+version: 2.1
+
+jobs:
+  build-and-test:
+    docker:
+      - image: cimg/python:3.8
+    steps:
+      - checkout
+      - run:
+          name: Zainstaluj zaleznosci (deps)
+          command: make deps
+      - run:
+          name: Linter (lint)
+          command: make lint
+      - run:
+          name: Testy (test)
+          command: make test
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
