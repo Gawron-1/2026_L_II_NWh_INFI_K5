@@ -84,3 +84,6 @@ o Continuous Integration, Continuous Delivery i Continuous Deployment.
   $ yum install -y docker-ce
   $ systemctl start docker
   ```
+
+## Aktualizacja dokumentacji
+Projekt zawiera Makefile (deps, lint, run, test), Dockerfile oraz konfigurację CircleCI (deps, lint, test, docker_build, docker_push).
